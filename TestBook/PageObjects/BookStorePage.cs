@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 using TestBook.Common;
 
 namespace TestBook.PageObjects
@@ -8,25 +7,17 @@ namespace TestBook.PageObjects
     {
         public BookStorePage(IWebDriver driver): base(driver) { }
 
-        private By _searchTextBox = By.Id("searchBox");
+        
         private By _addToCollectionButton = By.XPath("//button[text()='Add To Your Collection']");
+        private By _bookImageCell = By.CssSelector("div[role^='gridcell'] > img");
 
-        public void SearchBook(string title) => SendKeyToElement(_searchTextBox, title);
+        public void AddBookToCollection() => ClickElement(_addToCollectionButton);
 
         public void ClickBookLink(string bookTitle)
         {
             var bookLink = FindElement(By.LinkText(bookTitle));
             bookLink.Click();
-        }
-
-        public void AddBookToCollection() => ClickElement(_addToCollectionButton);
-
-        public bool IsAlertShown(string message)
-        {
-            var alertDialog = WebDriver.SwitchTo().Alert();
-            var text = alertDialog.Text;
-            alertDialog.Accept();
-            return Equals(message, text);
+            WaitUntilPageReady();
         }
 
         public ProfilePage GoToProfile()
@@ -34,5 +25,7 @@ namespace TestBook.PageObjects
             NavigateTo("profile");
             return new ProfilePage(WebDriver);
         }
+
+        public int CountCurrentBooksOnTable() => FindElements(_bookImageCell).Count;
     }
 }

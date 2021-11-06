@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 using TestBook.Common;
 
 namespace TestBook.PageObjects
@@ -9,6 +8,8 @@ namespace TestBook.PageObjects
         public ProfilePage(IWebDriver driver): base(driver) { }
 
         private By _userNameLabel = By.Id("userName-value");
+        private By _deleteBookButton = By.CssSelector("span[title^='Delete']");
+        private By _okButtonModal = By.Id("closeSmallModal-ok");
 
         public void WaitForLoading() => WaitForElementVisible(_userNameLabel);
 
@@ -24,10 +25,12 @@ namespace TestBook.PageObjects
             return new BookStorePage(WebDriver);
         }
 
-        public bool IsBookExists(string title)
+        public void ClickDeleteBookButton() => ClickElement(_deleteBookButton);
+
+        public void AcceptConfirmationOnModal()
         {
-            var book = FindElement(By.LinkText(title));
-            return book.Displayed;
+            WaitForElementVisible(_okButtonModal);
+            ClickElement(_okButtonModal);
         }
     }
 }

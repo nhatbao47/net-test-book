@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +10,7 @@ namespace TestBook.Common
         private IWebDriver _webDriver;
         private const int _timeout = 30;
         private By _mainHeader = By.ClassName("main-header");
+        private By _searchTextBox = By.Id("searchBox");
 
         public BasePage(IWebDriver driver)
         {
@@ -56,9 +56,37 @@ namespace TestBook.Common
             driverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
 
+        public void WaitForAlertVisible()
+        {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(_timeout));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+        }
+
         public void WaitUntilPageReady()
         {
             WaitForElementVisible(_mainHeader);
+        }
+
+        public void SearchBook(string title) => SendKeyToElement(_searchTextBox, title);
+
+        public bool IsLinkTextExists(string title)
+        {
+            try
+            {
+                return FindElement(By.LinkText(title)).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public bool IsAlertShown(string message)
+        {
+            var alertDialog = WebDriver.SwitchTo().Alert();
+            var text = alertDialog.Text;
+            alertDialog.Accept();
+            return Equals(message, text);
         }
     }
 }

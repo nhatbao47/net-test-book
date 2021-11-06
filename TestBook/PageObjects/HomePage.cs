@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 using TestBook.Common;
 
 namespace TestBook.PageObjects
@@ -12,6 +11,12 @@ namespace TestBook.PageObjects
         {
             NavigateTo("login");
             return new LoginPage(WebDriver);
+        }
+
+        public BookStorePage GoToBookStorePage()
+        {
+            NavigateTo("books");
+            return new BookStorePage(WebDriver);
         }
     }
 }

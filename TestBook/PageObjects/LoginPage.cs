@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 using TestBook.Common;
 
 namespace TestBook.PageObjects
@@ -11,7 +10,6 @@ namespace TestBook.PageObjects
         private By userNameTextBox = By.Id("userName");
         private By passwordTextBox = By.Id("password");
         private By loginButton = By.Id("login");
-        private By logOutButton = By.Id("submit");
 
         public ProfilePage Login(string userName, string password)
         {
