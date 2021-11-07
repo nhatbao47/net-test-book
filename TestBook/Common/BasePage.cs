@@ -48,8 +48,6 @@ namespace TestBook.Common
             element.SendKeys(value);
         }
 
-        public string GetMainHeaderText() => FindElement(_mainHeader).Text;
-
         public void WaitForElementVisible(By locator)
         {
             var driverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(_timeout));

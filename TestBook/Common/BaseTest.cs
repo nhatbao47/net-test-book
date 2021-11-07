@@ -2,11 +2,10 @@
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Net.Http;
-using TestBook.Common;
 using TestBook.Models;
 using TestBook.PageObjects;
 
-namespace TestBook.TestCases
+namespace TestBook.Common
 {
     public class BaseTest
     {

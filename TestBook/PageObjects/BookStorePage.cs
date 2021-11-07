@@ -9,7 +9,7 @@ namespace TestBook.PageObjects
 
         
         private By _addToCollectionButton = By.XPath("//button[text()='Add To Your Collection']");
-        private By _bookImageCell = By.CssSelector("div[role^='gridcell'] > img");
+        private By _bookImageCell = By.CssSelector("div[role='gridcell'] > img");
 
         public void AddBookToCollection() => ClickElement(_addToCollectionButton);
 
